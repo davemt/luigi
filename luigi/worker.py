@@ -544,6 +544,7 @@ class Worker(object):
         """
         if self._first_task is None and hasattr(task, 'task_id'):
             self._first_task = task.task_id
+            self._add_worker()
         self.add_succeeded = True
         if multiprocess:
             queue = multiprocessing.Manager().Queue()
@@ -887,8 +888,6 @@ class Worker(object):
 
         sleeper = self._sleeper()
         self.run_succeeded = True
-
-        self._add_worker()
 
         while True:
             while len(self._running_tasks) >= self.worker_processes:

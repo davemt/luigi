@@ -826,6 +826,7 @@ class WorkerEmailTest(LuigiTestCase):
         a = A()
         self.assertEqual(emails, [])
         with Worker(scheduler=sch) as worker:
+            worker._add_worker = lambda: None
             try:
                 worker.add(a)
             except RPCError:
